@@ -1,1 +1,1 @@
-@Copyright by: nadamu AngorDesgin
+@Copyright by: nadamu & AngorDesign
