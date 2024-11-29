@@ -1,1 +1,0 @@
-print("Tu bedzie wiecej, jak sie naucze jak to dziala")

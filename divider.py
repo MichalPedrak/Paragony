@@ -8,7 +8,7 @@ class DataPoint:
         print(f"Article: {self.article}")
         print(f"Price: ({self.price})")
 
-class Recipe:
+class Receipt:
     def __init__(self, name, date1):
         self.name = name
         self.date = date1
@@ -26,12 +26,12 @@ class Recipe:
 
 #Dodawanie nowego paragonu:
 def add_data():
-    print("Podaj nazwe paragonu:\n")
+    print("Podaj nazwe paragonu:")
     name = input()
-    print("Podaj date paragonu(DD/MM/RR):\n")
+    print("Podaj date paragonu(DD/MM/RR):")
     date = input()
-    new_recipe = Recipe(name, date)
-    print("Podaj nazwe produktu oraz jego cene (q-zakoncz):\n")
+    new_recipe = Receipt(name, date)
+    print("Podaj nazwe produktu oraz jego cene (q-zakoncz):")
     while (True):
         n1 = input()
 
@@ -60,7 +60,7 @@ def write_recipe(rec):
 
 ########################################################################################
 
-recipe = add_data()
+#recipe = add_data()
 #print(recipe.data_points[1].article + " " + str(recipe.data_points[1].price))
 
-write_recipe(recipe)
+#write_recipe(recipe)

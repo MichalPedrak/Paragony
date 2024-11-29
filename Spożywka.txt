@@ -1,0 +1,6 @@
+Nazwa paragonu: Spo¿ywka
+Data paragonu: 12/09/24
+Artykul:        Cena:
+   Mleko          3.0
+   Sok          2.0
+   Papier          4.0
