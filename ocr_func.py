@@ -54,11 +54,19 @@ def writeText(text, x, y, img, fontType, font_size = 12, color_text=(255, 0, 0))
 #* color_outline -> kolor obrysu BGR (opcjonalnie)
 #* color_text -> kolor tekstu tekstu na obrazie BGR (opcjonalnie)
 def markPicture(result: Output, img, min_confidence = 20, color_outline = (0,0,255), color_text = (255,0,0)):
-    lista = [] 
-    name = ""
-    price = ""
+    #lista = [] 
+    #name = ""
+    #price = ""
+    ver = 50000 #? Zmienna na wysokość
+    hor = None #? Zmienna na szerokość
+    first = False #? Zmienna na pierwszą wartość cenową
+    wynik = '' #? Na razie zmienna na wynik skanowania (wszystko w jednym stringu)
     for i in range(0, len(result['text'])):
-        
+
+        if(re.match(price_pattern, result['text'][i]) and not first):
+            ver = result['top'][i] - 20
+            first = True
+
         confidence = int(result['conf'][i]) #? Poziom pewności odczytanego słowa z pozycji i
 
         if confidence > min_confidence: #? Sprawdzamy z jakim prawdopodobieństwem jest to słowo
@@ -67,18 +75,22 @@ def markPicture(result: Output, img, min_confidence = 20, color_outline = (0,0,2
 
             if not text.isspace() and len(text) > 0: #? Sprawdzamy, czy nie jest to przypadkiem spacja (blank space)
 
-                if re.match(name_pattern, text) and result['top'][i] > img.shape[0]/5 and result['top'][i] < img.shape[0] - 100:
+                if re.match(name_pattern, text) and result['top'][i] > ver:
+                    print(f"Y: {result['top'][i]}")
+                    print(ver)
                     x,y,img = outlineBox(result, img, i, (255,0,255)) 
                     img = writeText(text, x, y, img, fontCalibri) #? Nadpisuje tekst na obrazie
-                    name = text
+                    wynik += text
 
                 if re.match(price_pattern, text) and result['left'][i] > img.shape[1]/2 : #? Sprawdzamy, czy dany tekst wpisuje się w schemat
                     x,y,img = outlineBox(result, img, i, (0,255,0)) #? Zakreślamy ten tekst na zielono
                     img = writeText(text, x, y, img, fontCalibri) #? Nadpisuje tekst na obrazie
-                    price = text
-                new_data = DataPoint(name, price)
-                lista.append(new_data)
-    return img, lista
+                    wynik += text
+                    wynik += "\n"
+                #TODO: new_data = DataPoint(name, price)
+                #TODO: lista.append(new_data)
+                
+    return img, wynik
 
 
 #! Funkcja do pokazywania oznaczeń na podanym paragonie
